@@ -2,12 +2,6 @@
 require('dotenv').config();
 const Groq = require("groq-sdk");
 
-// const { OpenAI} = require('openai');
-// const apiKey = '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'
-
-// const openai = new OpenAI({
-//   apiKey: "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",
-// });
 
 const grop = new Groq({
     apiKey: process.env.GROQ_API_KEY,
