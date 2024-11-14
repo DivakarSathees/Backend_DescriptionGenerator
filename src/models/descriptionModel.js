@@ -5,6 +5,7 @@ const Groq = require("groq-sdk");
 
 const grop = new Groq({
     apiKey: process.env.GROQ_API_KEY,
+    // apiKey: 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,
 });
 
 exports.generateDescriptionWithGPT = async (projectType, complexity, technology, relationship, entityCount, operations, topic) => {

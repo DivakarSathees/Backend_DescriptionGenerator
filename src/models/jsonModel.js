@@ -52,10 +52,10 @@ each filecontent value should be placed in a single line with properly escaped d
         });
 
         const inputString = response.choices[0].message.content;
-        console.log('inr '+inputString);
+        // console.log('inr '+inputString);
         
         const jsonMatch = inputString.match(/(\[.*\])/s);
-        console.log("asd "+jsonMatch[0]);
+        // console.log("asd "+jsonMatch[0]);
         
         let jsonResponse;
         try{
@@ -74,7 +74,7 @@ each filecontent value should be placed in a single line with properly escaped d
 let jsonData;
 if (jsonResponse) {
     try {
-
+        
         if (solution.toLowerCase().includes('java')) {
             console.log('ready to create folder');
         jsonResponse.forEach(fileData => {
@@ -103,8 +103,14 @@ if (jsonResponse) {
             console.log(`File created: ${filePath}`);
         });
 
-        } else if(solution.toLowerCase().includes('dotnet')) {
+        } else if(solution.toLowerCase().includes('using')) {
         console.log('ready to create folder');
+        const extractedFolderPath11 = path.join(__dirname,"../../OutputSolution/", 'dotnetapp'); // Extracting to 'extracted' folder
+
+        if (fs.existsSync(extractedFolderPath11)) {
+            fs.rmSync(extractedFolderPath11, { recursive: true, force: true });
+            console.log(`Existing folder deleted: ${extractedFolderPath11}`);
+          }
         jsonResponse.forEach(fileData => {
             const { folderName, fileName, filecontent } = fileData;
             const zipFilePath = path.join(__dirname, "../../", 'dotnetapp.zip'); // Update this to your zip file location
@@ -113,11 +119,12 @@ if (jsonResponse) {
             const zip = new AdmZip(zipFilePath);
 
             // Extract the zip to a specific folder
-            const extractedFolderPath1 = path.join(__dirname,"../../OutputSolution/", 'dotnetapp'); // Extracting to 'extracted' folder
-            // if (fs.existsSync(extractedFolderPath1)) {
-            //     fs.rmSync(extractedFolderPath1, { recursive: true, force: true });
-            //     console.log(`Existing folder deleted: ${extractedFolderPath1}`);
+            // if (fs.existsSync(extractedFolderPath11)) {
+            //     fs.rmSync(extractedFolderPath11, { recursive: true, force: true });
+            //     console.log(`Existing folder deleted: ${extractedFolderPath11}`);
             //   }
+            const extractedFolderPath1 = path.join(__dirname,"../../OutputSolution/", 'dotnetapp'); // Extracting to 'extracted' folder
+
             zip.extractAllTo(extractedFolderPath1, true); // Extract all files to 'extractedFolderPath'
             console.log(`Files extracted to: ${extractedFolderPath1}`);
 

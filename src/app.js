@@ -7,7 +7,7 @@ const cors = require('cors');
 
 
 const app = express();
-app.use(cors({ origin: 'https://forntend-weightagesplit-1.onrender.com' }));
+app.use(cors({ origin: ['https://forntend-weightagesplit-1.onrender.com', 'http://localhost:4200'] }));
 
 
 
