@@ -84,7 +84,7 @@ const downloadService = async (fileName, folderPath, res) => {
 
             // Pipe the archive data to both the response and the local file
             archive.pipe(res);
-            archive.pipe(output);
+            // archive.pipe(output);
 
             // Append the folder to the archive
             archive.directory(folderPath, false);
@@ -93,13 +93,13 @@ const downloadService = async (fileName, folderPath, res) => {
             archive.finalize();
 
             // Resolve the promise once the local file is fully written
-            output.on("close", () => {
+            res.on("close", () => {
                 // console.log(`Local ZIP created at: ${localZipPath}`);
                 resolve("File downloaded and saved locally.");
             });
 
             // Handle write stream errors
-            output.on("error", (err) => {
+            res.on("error", (err) => {
                 console.error("Error writing local zip file:", err);
                 reject(err);
             });
