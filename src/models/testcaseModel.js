@@ -22,10 +22,10 @@ exports.generateTestcaseWithGPT = async (solution) => {
 //     ]    
 //   there should be \\r\\n before each line in "filecontent" property
 //     `;
-let prompt = `Write 20 testcases in json string structure for the provided solution ${solution} like below example & give full code in the filecontent - use reflextion 
+let prompt = `Write 20 nunit testcases in json string structure for the provided solution ${solution} like below example & give full code in the filecontent - use reflextion 
 folder name should be TestProject, & fileName should be UnitTest1.cs
      [
-      { "folderName": "TestProject", "fileName": "UnitTest.cs", "filecontent": "\\r\\nusing Microsoft.AspNetCore.Builder;\\r\\nusing Microsoft.AspNetCore.Hosting;\\r\\nusing Microsoft.AspNetCore.Mvc;\\r\\nusing Microsoft.Extensions.Configuration;\\r\\nusing Microsoft.Extensions.DependencyInjection;\\r\\nusing dotnetapp.Data;\\r\\nusing Microsoft.EntityFrameworkCore;"}
+      { "folderName": "TestProject", "fileName": "UnitTest1.cs", "filecontent": "\\r\\nusing Microsoft.AspNetCore.Builder;\\r\\nusing Microsoft.AspNetCore.Hosting;\\r\\nusing Microsoft.AspNetCore.Mvc;\\r\\nusing Microsoft.Extensions.Configuration;\\r\\nusing Microsoft.Extensions.DependencyInjection;\\r\\nusing dotnetapp.Data;\\r\\nusing Microsoft.EntityFrameworkCore;"}
      ]    
    there should be \\r\\n before each line in "filecontent" property
 
@@ -426,96 +426,96 @@ namespace dotnetapp.Tests
         const inputString = response.choices[0].message.content;
         console.log('inr '+inputString);
         
-        const jsonMatch = inputString.match(/(\[.*\])/s);
-        console.log("asd "+jsonMatch[0]);
+//         const jsonMatch = inputString.match(/(\[.*\])/s);
+//         console.log("asd "+jsonMatch[0]);
         
-        let jsonResponse;
-        try{
-            // console.log("match "+ jsonMatch);
+//         let jsonResponse;
+//         try{
+//             // console.log("match "+ jsonMatch);
             
-        jsonResponse = JSON.parse(jsonMatch[0]);
+//         jsonResponse = JSON.parse(jsonMatch[0]);
 
-        } catch (error) {
-            console.error("Error parsing JSON:", error);
-        }
+//         } catch (error) {
+//             console.error("Error parsing JSON:", error);
+//         }
 
 
-        // Iterate through the JSON array and print folder names
+//         // Iterate through the JSON array and print folder names
         
         
-let jsonData;
-if (jsonResponse) {
-    try {
+// let jsonData;
+// if (jsonResponse) {
+//     try {
 
-        if (solution.toLowerCase().includes('java')) {
-            console.log('ready to create folder');
-        jsonResponse.forEach(fileData => {
-            const { folderName, fileName, filecontent } = fileData;
-            const zipFilePath = path.join(__dirname, "../../", 'springapp.zip'); // Update this to your zip file location
+//         if (solution.toLowerCase().includes('java')) {
+//             console.log('ready to create folder');
+//         jsonResponse.forEach(fileData => {
+//             const { folderName, fileName, filecontent } = fileData;
+//             const zipFilePath = path.join(__dirname, "../../", 'springapp.zip'); // Update this to your zip file location
 
-            // Initialize adm-zip
-            const zip = new AdmZip(zipFilePath);
+//             // Initialize adm-zip
+//             const zip = new AdmZip(zipFilePath);
 
-            // Extract the zip to a specific folder
-            const extractedFolderPath1 = path.join(__dirname,"../../", 'springapp'); // Extracting to 'extracted' folder
-            zip.extractAllTo(extractedFolderPath1, true); // Extract all files to 'extractedFolderPath'
-            console.log(`Files extracted to: ${extractedFolderPath1}`);
+//             // Extract the zip to a specific folder
+//             const extractedFolderPath1 = path.join(__dirname,"../../", 'springapp'); // Extracting to 'extracted' folder
+//             zip.extractAllTo(extractedFolderPath1, true); // Extract all files to 'extractedFolderPath'
+//             console.log(`Files extracted to: ${extractedFolderPath1}`);
 
-            const extractedFolderPath = path.join(__dirname, "../../springapp/springapp/src/main/java/com/examly/springapp", folderName); // Goes 2 levels up
+//             const extractedFolderPath = path.join(__dirname, "../../springapp/springapp/src/main/java/com/examly/springapp", folderName); // Goes 2 levels up
 
-            // Ensure the extracted folder exists, if not, create it
-            if (!fs.existsSync(extractedFolderPath)) {
-                fs.mkdirSync(extractedFolderPath, { recursive: true });
-                console.log(`Folder created: ${extractedFolderPath}`);
-            }
+//             // Ensure the extracted folder exists, if not, create it
+//             if (!fs.existsSync(extractedFolderPath)) {
+//                 fs.mkdirSync(extractedFolderPath, { recursive: true });
+//                 console.log(`Folder created: ${extractedFolderPath}`);
+//             }
 
-            // Create the file inside the extracted folder
-            const filePath = path.join(extractedFolderPath, fileName);
-            fs.writeFileSync(filePath, filecontent);
-            console.log(`File created: ${filePath}`);
-        });
+//             // Create the file inside the extracted folder
+//             const filePath = path.join(extractedFolderPath, fileName);
+//             fs.writeFileSync(filePath, filecontent);
+//             console.log(`File created: ${filePath}`);
+//         });
 
-        } else if(solution.toLowerCase().includes('dotnet')) {
-        console.log('ready to create nunit');
-        jsonResponse.forEach(fileData => {
-            const { folderName, fileName, filecontent } = fileData;
-            const zipFilePath = path.join(__dirname, "../../", 'dotnetapp.zip'); // Update this to your zip file location
+//         } else if(solution.toLowerCase().includes('dotnet')) {
+//         console.log('ready to create nunit');
+//         jsonResponse.forEach(fileData => {
+//             const { folderName, fileName, filecontent } = fileData;
+//             const zipFilePath = path.join(__dirname, "../../", 'dotnetapp.zip'); // Update this to your zip file location
 
-            // Initialize adm-zip
-            // const zip = new AdmZip(zipFilePath);
+//             // Initialize adm-zip
+//             // const zip = new AdmZip(zipFilePath);
 
-            // // Extract the zip to a specific folder
-            // const extractedFolderPath1 = path.join(__dirname,"../../", 'dotnetapp'); // Extracting to 'extracted' folder
-            // zip.extractAllTo(extractedFolderPath1, true); // Extract all files to 'extractedFolderPath'
-            // console.log(`Files extracted to: ${extractedFolderPath1}`);
+//             // // Extract the zip to a specific folder
+//             // const extractedFolderPath1 = path.join(__dirname,"../../", 'dotnetapp'); // Extracting to 'extracted' folder
+//             // zip.extractAllTo(extractedFolderPath1, true); // Extract all files to 'extractedFolderPath'
+//             // console.log(`Files extracted to: ${extractedFolderPath1}`);
 
-            const extractedFolderPath = path.join(__dirname, "../../dotnetapp/", folderName); // Goes 2 levels up
+//             const extractedFolderPath = path.join(__dirname, "../../dotnetapp/", folderName); // Goes 2 levels up
 
-            // Ensure the extracted folder exists, if not, create it
-            if (!fs.existsSync(extractedFolderPath)) {
-                fs.mkdirSync(extractedFolderPath, { recursive: true });
-                console.log(`Folder created: ${extractedFolderPath}`);
-            }
+//             // Ensure the extracted folder exists, if not, create it
+//             if (!fs.existsSync(extractedFolderPath)) {
+//                 fs.mkdirSync(extractedFolderPath, { recursive: true });
+//                 console.log(`Folder created: ${extractedFolderPath}`);
+//             }
 
-            // Create the file inside the extracted folder
-            const filePath = path.join(extractedFolderPath, fileName);
-            fs.writeFileSync(filePath, filecontent);
-            console.log(`File created: ${filePath}`);
-        });
-    }
+//             // Create the file inside the extracted folder
+//             const filePath = path.join(extractedFolderPath, fileName);
+//             fs.writeFileSync(filePath, filecontent);
+//             console.log(`File created: ${filePath}`);
+//         });
+//     }
 
 
         
-    } catch (error) {
-        console.error("Error parsing JSON:", error);
-    }
-} else {
-    console.log("No JSON found in the string.");
-}
+//     } catch (error) {
+//         console.error("Error parsing JSON:", error);
+//     }
+// } else {
+//     console.log("No JSON found in the string.");
+// }
           
         
         
-        return jsonResponse;
+        return inputString;
     } catch (error) {
         throw new Error('Error with GPT model text generation');
     }

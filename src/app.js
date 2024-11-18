@@ -2,6 +2,11 @@ const express = require('express');
 const descriptionRoutes = require('./routes/descriptionRoutes');
 const solutionRoutes = require('./routes/solutionRoutes');
 const testcasesRoutes = require('./routes/testcasesRoutes');
+const downloadRotes = require('./routes/downloadRoutes');
+const path = require('path');
+const archiver = require("archiver");
+const fs = require("fs");
+
 require('dotenv').config();
 const cors = require('cors');
 
@@ -16,7 +21,7 @@ app.use(express.json());
 app.use('/api/descriptions', descriptionRoutes);
 app.use('/api/solutions', solutionRoutes);
 app.use('/api/testcases', testcasesRoutes);
-
+app.use('/api/download', downloadRotes);
 
 
 
