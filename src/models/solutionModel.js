@@ -38,7 +38,9 @@ exports.generateSolutionWithGPT = async (description) => {
     try {
         // Call OpenAI GPT-3 or GPT-4 API with the generated prompt
         const response = await grop.chat.completions.create({
-            model: 'llama3-8b-8192',  // or 'gpt-4' if using GPT-4
+            // model: 'llama3-8b-8192',  // or 'gpt-4' if using GPT-4
+            model: 'meta-llama/llama-4-scout-17b-16e-instruct', 
+
             // prompt: prompt,
             messages: [
                         { role: "system", content: description },
